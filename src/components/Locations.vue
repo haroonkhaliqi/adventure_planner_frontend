@@ -1,7 +1,8 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="locations_container">
     <div class="add_location">
-      <form v-on:submit.prevent="submitForm">
+      <form @submit.prevent="submitForm">
         <div class="form-group">
           <label for="title">Title</label>
           <input type="text" class="form-control" id="title" v-model="title" />
@@ -12,11 +13,11 @@
         </div>
         <div class="form-group">
           <label for="latitude">Latitude</label>
-          <textarea class="form-control" id="latitude" v-model="latitude"></textarea>
+          <input type="text" class="form-control" id="latitude" v-model="latitude" />
         </div>
         <div class="form-group">
           <label for="longitude">Longitude</label>
-          <textarea class="form-control" id="longitude" v-model="longitude"></textarea>
+          <input type="text" class="form-control" id="longitude" v-model="longitude" />
         </div>
         <div class="form-group">
           <button type="submit">Add Location</button>
@@ -29,11 +30,8 @@
         <li v-for="location in locations" :key="location.id">
           <h2>{{ location.title }}</h2>
           <p>{{ location.description }}</p>
-          <p> {{ location.latitude }}</p>
-          <p> {{ location.longitude }}</p>
-          <button @click="toggleLocation(location)">
-            {{ location.completed ? "Undo" : "Complete" }}
-          </button>
+          <p>Latitude: {{ location.latitude }}</p>
+          <p>Longitude: {{ location.longitude }}</p>
           <button @click="deleteLocation(location)">Delete</button>
         </li>
       </ul>
@@ -45,9 +43,11 @@
 export default {
   data() {
     return {
-      locations: [""],
+      locations: [],
       title: "",
       description: "",
+      latitude: "",
+      longitude: "",
     };
   },
   methods: {
@@ -64,31 +64,14 @@ export default {
         const response = await this.$http.post("http://localhost:8000/api/locations/", {
           title: this.title,
           description: this.description,
-          completed: false,
+          latitude: this.latitude,
+          longitude: this.longitude,
         });
         this.locations.push(response.data);
         this.title = "";
         this.description = "";
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async toggleLocation(location) {
-      try {
-        const response = await this.$http.put(`http://localhost:8000/api/locations/${location.id}/`, {
-          completed: !location.completed,
-          title: location.title,
-          description: location.description,
-        });
-
-        let locationIndex = this.locations.findIndex((t) => t.id === location.id);
-
-        this.locations = this.locations.map((location) => {
-          if (this.locations.findIndex((t) => t.id === location.id) === locationIndex) {
-            return response.data;
-          }
-          return location;
-        });
+        this.latitude = "";
+        this.longitude = "";
       } catch (error) {
         console.log(error);
       }
@@ -98,8 +81,7 @@ export default {
 
       if (confirmation) {
         try {
-          await this.$http.delete(`http://localhost:8000/api/locations/${location.id}`);
-
+          await this.$http.delete(`http://localhost:8000/api/locations/${location.id}/`);
           this.getData();
         } catch (error) {
           console.log(error);
