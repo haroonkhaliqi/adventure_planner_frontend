@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="locations_container">
     <div class="add_location">
@@ -12,6 +11,14 @@
           <textarea class="form-control" id="description" v-model="description"></textarea>
         </div>
         <div class="form-group">
+          <label for="latitude">Latitude</label>
+          <textarea class="form-control" id="latitude" v-model="latitude"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="longitude">Longitude</label>
+          <textarea class="form-control" id="longitude" v-model="longitude"></textarea>
+        </div>
+        <div class="form-group">
           <button type="submit">Add Location</button>
         </div>
       </form>
@@ -22,6 +29,8 @@
         <li v-for="location in locations" :key="location.id">
           <h2>{{ location.title }}</h2>
           <p>{{ location.description }}</p>
+          <p> {{ location.latitude }}</p>
+          <p> {{ location.longitude }}</p>
           <button @click="toggleLocation(location)">
             {{ location.completed ? "Undo" : "Complete" }}
           </button>
