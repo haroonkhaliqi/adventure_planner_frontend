@@ -4,8 +4,8 @@
     <div class="add_location">
       <form @submit.prevent="submitForm">
         <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" class="form-control" id="title" v-model="title" />
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" v-model="name" />
         </div>
         <div class="form-group">
           <label for="description">Description</label>
@@ -28,7 +28,7 @@
       <h1>Locations</h1>
       <ul class="locations_list">
         <li v-for="location in locations" :key="location.id">
-          <h2>{{ location.title }}</h2>
+          <h2>{{ location.name }}</h2>
           <p>{{ location.description }}</p>
           <p>Latitude: {{ location.latitude }}</p>
           <p>Longitude: {{ location.longitude }}</p>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       locations: [],
-      title: "",
+      name: "",
       description: "",
       latitude: "",
       longitude: "",
@@ -62,13 +62,13 @@ export default {
     async submitForm() {
       try {
         const response = await this.$http.post("http://localhost:8000/api/locations/", {
-          title: this.title,
+          name: this.name,
           description: this.description,
           latitude: this.latitude,
           longitude: this.longitude,
         });
         this.locations.push(response.data);
-        this.title = "";
+        this.name = "";
         this.description = "";
         this.latitude = "";
         this.longitude = "";
