@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <Locations />
+    <AdventureLocations />
+    <AdventureMap />
   </div>
 </template>
 <script>
-import Locations from "./components/Locations.vue";
+import AdventureLocations from "./components/AdventureLocations.vue";
+import AdventureMap from "./components/AdventureMap.vue";
 import "./app.css";
 export default {
   name: "App",
   components: {
-    Locations,
+    AdventureLocations,
+    AdventureMap,
   },
 };
 </script>
