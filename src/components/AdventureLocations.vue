@@ -1,4 +1,5 @@
 <template>
+  <AdventureHeader />
   <div class="locations_container">
     <div class="add_location">
       <form @submit.prevent="submitForm">
@@ -36,10 +37,17 @@
       </ul>
     </div>
   </div>
+  <AdventureMap />
 </template>
 
 <script>
+import AdventureMap from '@/components/AdventureMap.vue';
+import AdventureHeader from './AdventureHeader.vue';
 export default {
+  components: {
+    AdventureMap,
+    AdventureHeader
+  },
   data() {
     return {
       locations: [],
