@@ -2,12 +2,10 @@
   <header class="mb-4">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <b-navbar variant="faded" type="light">
-          <b-navbar-brand href="#">
-            <img :src="logo" alt="Logo" :width="60" :height="60" />
-            WanderWaze
-          </b-navbar-brand>
-        </b-navbar>
+        <a class="navbar-brand" href="/">
+          <img :src="logo" alt="Logo" width="60" height="60" />
+          WanderWaze
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -21,14 +19,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+            <li class="nav-item" v-if="!isAuthenticated">
+              <a class="nav-link" href="/signup">Signup</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+            <li class="nav-item" v-if="!isAuthenticated">
+              <a class="nav-link" href="/login">Login</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Download</a>
+            <li class="nav-item" v-if="isAuthenticated">
+              <LogoutView />
             </li>
           </ul>
         </div>
@@ -38,13 +36,24 @@
 </template>
 
 <script>
-import logo from "@/assets/logo.png"; // Adjust the path as needed
+import logo from "@/assets/logo.png";
+import LogoutView from "@/components/LogoutView.vue";
+import { mapGetters } from "vuex";
 
 export default {
+  components: {
+    LogoutView,
+  },
   data() {
     return {
       logo: logo,
     };
+  },
+  computed: {
+    ...mapGetters(["getIsAuthenticated"]),
+    isAuthenticated() {
+      return this.getIsAuthenticated;
+    },
   },
 };
 </script>
