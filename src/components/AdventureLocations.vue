@@ -1,5 +1,8 @@
 <template>
   <AdventureHeader />
+  <h3 class="factoid_container mt-5 mb-5">
+    <FactoidView />
+  </h3>
   <div class="locations_container">
     <div class="add_location">
       <form @submit.prevent="submitForm">
@@ -43,10 +46,12 @@
 <script>
 import AdventureMap from '@/components/AdventureMap.vue';
 import AdventureHeader from './AdventureHeader.vue';
+import FactoidView from './FactoidView.vue';
 export default {
   components: {
     AdventureMap,
-    AdventureHeader
+    AdventureHeader,
+    FactoidView,
   },
   data() {
     return {
