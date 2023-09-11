@@ -28,16 +28,17 @@ export default {
   },
   methods: {
     signup() {
-      // Handle registration
+
+    // Handle registration
+    const params = new URLSearchParams();
+    params.append("username", this.username);
+    params.append("password", this.password);
+
       axios
-        .post("http://localhost:8000/register/", {
-          username: this.username,
-          password1: this.password,
-          password2: this.password,
-        })
+        .post("http://localhost:8000/signup/", params)
         .then((response) => {
           // Handle successful registration
-          if (response.data) {
+          if (response.data.message === 'User registered successfully.') {
             console.log("Registration successful");
             this.$router.push({ name: 'login' });
           }
@@ -49,17 +50,14 @@ export default {
               error.response.status
             );
             console.error("Response data:", error.response.data);
+            this.error = error.response.data.message; // Update error message
           } else if (error.request) {
             console.error("No response received:", error.request);
           } else {
             console.error("Error:", error.message);
           }
-          // Handle registration error
-          console.error("Registration error", error);
-          this.error = "Registration failed. Please check your input.";
         });
-      console.log('Username:', this.username);
     },
   },
-};
+}
 </script>

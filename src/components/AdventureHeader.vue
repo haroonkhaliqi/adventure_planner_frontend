@@ -1,24 +1,20 @@
 <template>
   <header class="mb-4">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="/">
-          <img :src="logo" alt="Logo" width="60" height="60" />
-          WanderWaze
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarTogglerDemo02"
-          aria-controls="navbarTogglerDemo02"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">WanderWaze</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav ms-auto">
+
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+              <h5 class="username justify-content-between" v-if="isAuthenticated">
+                <span class="text-white">Welcome, {{ displayedUsername }}</span>
+              </h5>
+            </ul>
+          <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
             <li class="nav-item" v-if="!isAuthenticated">
               <a class="nav-link" href="/signup">Signup</a>
             </li>
@@ -50,10 +46,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getIsAuthenticated"]),
+    ...mapGetters(["getIsAuthenticated", "getUsername"]),
     isAuthenticated() {
-      return this.getIsAuthenticated;
+      return this.getIsAuthenticated
     },
-  },
+    displayedUsername() {
+      return this.getUsername;
+    }
+  }
 };
 </script>

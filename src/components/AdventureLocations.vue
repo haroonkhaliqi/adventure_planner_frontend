@@ -89,12 +89,16 @@ export default {
       if (confirmation) {
         try {
           await this.$http.delete(`http://localhost:8000/api/locations/${location.id}/`);
-          this.getData();
+          const index = this.locations.findIndex((item) => item.id === location.id);
+          if (index !== -1) {
+            this.locations.splice(index, 1);
+          }
         } catch (error) {
           console.log(error);
         }
       }
     },
+
   },
   created() {
     this.getData();

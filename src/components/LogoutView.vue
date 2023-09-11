@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
+import axios from "axios";
 
 export default {
   computed: {
@@ -16,33 +16,25 @@ export default {
   },
   methods: {
     async logout() {
-      // Get the session ID from sessionStorage
-      const sessionId = sessionStorage.getItem("sessionId");
+      // Get jwt from localStorage.
+      const jwt = localStorage.getItem("jwt");
 
-      if (!sessionId) {
-        console.warn("Session ID not found in sessionStorage.");
-        return;
-      }
+      if (jwt) {
 
-      try {
-        // Send a POST request with the session ID as data
-        const response = await axios.post(
-          `http://localhost:8000/logout/?session_key=${sessionId}`,
-          { sessionId }
-        );
+        try {
 
-        if (response.status === 200) {
-          // Clear the session ID from sessionStorage on successful logout
-          sessionStorage.removeItem("sessionId");
-          console.log("User has logged out");
+          // Clear the JWT from axios default header on successful logout
+          delete axios.defaults.headers.common["Authorization"];
+
+          // Clear the JWT from localStorage on successful logout
+          localStorage.removeItem("jwt");
+          localStorage.removeItem("username");
 
           // Toggle the isAuthenticated value in the Vuex store
           this.toggleAuthentication();
-        } else {
-          console.error("Logout failed:", response.statusText);
+        } catch (error) {
+          console.error("Error logging out:", error);
         }
-      } catch (error) {
-        console.error("Error during logout:", error);
       }
     },
     // Map the toggleAuthentication mutation from the Vuex store
