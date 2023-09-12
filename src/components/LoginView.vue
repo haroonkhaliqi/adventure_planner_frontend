@@ -2,7 +2,7 @@
   <div>
     <AdventureHeader />
     <h1>Login</h1>
-    <form @submit.prevent="login">
+    <form ref="loginForm" @submit.prevent="login">
       <input type="text" v-model="username" placeholder="Username" required />
       <input
         type="password"
@@ -36,35 +36,46 @@ export default {
     };
   },
   computed: {
-    // Use the correct getter name
+    // Map the isAuthenticated getter from the Vuex store
     ...mapGetters(["getIsAuthenticated"]),
+    isAuthenticated() {
+      return this.getIsAuthenticated;
+    },
   },
   methods: {
+
   login() {
-    console.log("Logging in...");
+    const jwt = localStorage.getItem("jwt");
+      if (jwt) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+      }
 
     const params = new URLSearchParams();
     params.append("username", this.username);
     params.append("password", this.password);
 
     axios
-      .post("http://localhost:8000/login/", params)
-      .then((response) => {
-        console.log("Login successful");
-        if (response.data) {
-          // Store the session ID in sessionStorage
-          sessionStorage.setItem("sessionId", response.data.session_key);
-          // Toggle the boolean switch in the Vuex store
-          this.toggleAuthentication();
+  .post("http://localhost:8000/login/", params)
+  .then((response) => {
+    const responseData = response.data; // Parse the JSON data
 
-          // Redirect to the home page
-          this.$router.push({ name: 'home' });
-        }
-      })
-      .catch((error) => {
-        this.error = "Invalid credentials";
-        console.error("Login error", error);
-      });
+    // Check if the response contains the JWT token
+    if (responseData.jwt) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + responseData.jwt;
+      localStorage.setItem("jwt", responseData.jwt);
+      this.toggleAuthentication();
+      this.$store.commit("setUsername", responseData.username);
+      this.$refs.loginForm.reset();
+      this.$router.push({ name: 'home' });
+    } else {
+      // Handle the case where the response doesn't contain the JWT token
+      console.error("JWT token not found in the response:", responseData);
+    }
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
   },
   ...mapMutations(["toggleAuthentication"]),
 },
