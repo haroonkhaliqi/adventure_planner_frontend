@@ -2,28 +2,35 @@ import Vuex from "vuex";
 
 const store = new Vuex.Store({
   state: {
-    // The 'isAuthenticated' state variable is set based on the value in localStorage
-    isAuthenticated: localStorage.getItem("isAuthenticated") === "true",
-    username: localStorage.getItem("username") || "",
+    username: null,
+    token: localStorage.getItem("jwtToken") || null,
   },
   mutations: {
-    toggleAuthentication(state) {
-      // Invert the value of 'isAuthenticated' in the state
-      state.isAuthenticated = !state.isAuthenticated;
-
-      // Update localStorage to persist the authentication state across page refreshes
-      localStorage.setItem("isAuthenticated", state.isAuthenticated.toString());
-    },
-    setUsername(state, username) {
+    setUser(state, username) {
       state.username = username;
-
-      // Update localStorage to persist the username across page refreshes
       localStorage.setItem("username", username);
     },
+    setToken(state, token) {
+      state.token = token;
+      localStorage.setItem("jwtToken", token);
+    },
+    clearToken(state) {
+      state.token = null;
+      localStorage.removeItem("jwtToken");
+    },
+    clearUser(state) {
+      state.username = null;
+      localStorage.removeItem("username");
+    },
   },
+  actions: {},
   getters: {
-    getIsAuthenticated: (state) => state.isAuthenticated,
-    getUsername: (state) => state.username,
+    isLoggedIn(state) {
+      return !!state.token;
+    },
+    getUsername() {
+      return localStorage.getItem("username")
+    },
   },
 });
 

@@ -3,42 +3,29 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import axios from "axios";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   computed: {
-    // Map the isAuthenticated getter from the Vuex store
-    ...mapGetters(["getIsAuthenticated"]),
+    ...mapGetters(["getUsername"]),
     isAuthenticated() {
-      return this.getIsAuthenticated;
+      return this.$root.isAuthenticated;
     },
   },
   methods: {
     async logout() {
-      // Get jwt from localStorage.
-      const jwt = localStorage.getItem("jwt");
-
-      if (jwt) {
 
         try {
+          localStorage.removeItem("jwtToken");
+          this.clearToken();
 
-          // Clear the JWT from axios default header on successful logout
-          delete axios.defaults.headers.common["Authorization"];
-
-          // Clear the JWT from localStorage on successful logout
-          localStorage.removeItem("jwt");
-          localStorage.removeItem("username");
-
-          // Toggle the isAuthenticated value in the Vuex store
-          this.toggleAuthentication();
+          this.clearUser();
         } catch (error) {
           console.error("Error logging out:", error);
         }
-      }
     },
-    // Map the toggleAuthentication mutation from the Vuex store
-    ...mapMutations(["toggleAuthentication"]),
+    ...mapMutations(["clearUser"]),
+    ...mapMutations(["clearToken"]),
   },
 };
 </script>
