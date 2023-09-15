@@ -25,18 +25,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
-            <h5 class="username justify-content-between" v-if="isAuthenticated">
+            <h5 class="username justify-content-between" v-if="isLoggedIn">
               <span class="text-white">Welcome, {{ displayedUsername }}</span>
             </h5>
           </ul>
           <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
-            <li class="nav-item" v-if="!isAuthenticated">
+            <li class="nav-item" v-if="!isLoggedIn">
               <a class="nav-link" href="/signup">Signup</a>
             </li>
-            <li class="nav-item" v-if="!isAuthenticated">
+            <li class="nav-item" v-if="!isLoggedIn">
               <a class="nav-link" href="/login">Login</a>
             </li>
-            <li class="nav-item" v-if="isAuthenticated">
+            <li class="nav-item" v-if="isLoggedIn">
               <LogoutView />
             </li>
           </ul>
@@ -61,9 +61,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getIsAuthenticated", "getUsername"]),
+    ...mapGetters(["isLoggedIn", "getUsername"]),
     isAuthenticated() {
-      return this.getIsAuthenticated;
+      return this.isLoggedIn;
     },
     displayedUsername() {
       return this.getUsername;
