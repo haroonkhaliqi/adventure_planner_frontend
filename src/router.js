@@ -1,23 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Signup from './components/SignupView.vue';
-import Login from './components/LoginView.vue';
-import AdventureLocations from './components/AdventureLocations.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import Signup from "./components/SignupView.vue";
+import Login from "./components/LoginView.vue";
+import ContentView from "./components/ContentView.vue";
+import RoutingData from "./components/RoutingData.vue";
 
 const routes = [
   {
-    path: '/',
-    component: AdventureLocations,
-    name: 'home',
+    path: "/",
+    component: ContentView,
+    name: "home",
   },
   {
-    path: '/signup',
+    path: "/signup",
     component: Signup,
-    name: 'signup',
+    name: "signup",
   },
   {
-    path: '/login',
+    path: "/login",
     component: Login,
-    name: 'login',
+    name: "login",
+  },
+  {
+    path: "/route/data",
+    component: RoutingData,
+    name: "routing_data",
   },
 ];
 

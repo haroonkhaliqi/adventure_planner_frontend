@@ -29,7 +29,7 @@ const store = new Vuex.Store({
       return !!state.token;
     },
     getUsername() {
-      return localStorage.getItem("username")
+      return localStorage.getItem("username");
     },
   },
 });
