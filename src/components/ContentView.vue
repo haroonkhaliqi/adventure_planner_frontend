@@ -4,7 +4,11 @@
     <FactoidView />
   </h3>
   <div class="locations_container">
-    <input class="input_container text-center" v-model="addressInput" placeholder="Enter address to search" />
+    <input
+      class="input_container text-center"
+      v-model="addressInput"
+      placeholder="Enter address to search"
+    />
     <button @click="fetchJsonData">Search</button>
   </div>
   <div class="results_container">
@@ -27,8 +31,8 @@
 </template>
 
 <script>
-import AdventureHeader from './AdventureHeader.vue';
-import FactoidView from './FactoidView.vue';
+import AdventureHeader from "./AdventureHeader.vue";
+import FactoidView from "./FactoidView.vue";
 import axios from "axios";
 
 export default {
@@ -48,7 +52,14 @@ export default {
       const address = this.addressInput;
 
       try {
-        const response = await axios.get(`http://localhost:8000/places?address=${address}`);
+        const token = localStorage.getItem("jwtToken");
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        const response = await axios.get(
+          `http://localhost:8000/places?address=${address}`,
+          { headers }
+        );
         this.jsonData = response.data;
         this.searchQuery = this.addressInput;
       } catch (error) {
@@ -59,4 +70,4 @@ export default {
 };
 </script>
 
-<style src="./AdventureLocations.css"></style>
+<style src="./ContentStyling.css"></style>

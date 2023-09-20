@@ -16,13 +16,19 @@
       </div>
       <div class="form-field d-flex align-items-center">
         <span class="fas fa-key"></span>
-        <input type="password" v-model="password" placeholder="Password" autocomplete="on" required />
+        <input
+          type="password"
+          v-model="password"
+          placeholder="Password"
+          autocomplete="on"
+          required
+        />
       </div>
       <button class="btn mt-3" type="submit">Signup</button>
     </form>
     <div class="text-center fs-6">
       Already have an Account?
-      <a href="/login">Log in here!</a>
+      <router-link to="/login">Login here!</router-link>
     </div>
   </div>
 </template>
@@ -60,7 +66,10 @@ export default {
         })
         .catch((error) => {
           if (error.response) {
-            console.error("Server responded with error:", error.response.status);
+            console.error(
+              "Server responded with error:",
+              error.response.status
+            );
             console.error("Response data:", error.response.data);
             this.error = error.response.data.message; // Update error message
           } else if (error.request) {

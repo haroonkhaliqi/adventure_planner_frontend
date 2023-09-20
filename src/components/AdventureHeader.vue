@@ -1,49 +1,69 @@
 <template>
-  <header class="mb-4">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
+  <nav
+    class="navbar navbar-dark navbar-expand-md bg-dark d-flex justify-content-evenly"
+  >
+    <!-- Entire Navbar -->
+    <div class="container-fluid">
+      <!-- Hamburger Menu -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- 1st Column -->
+      <div class="navbar-nav col-4 justify-content-start align-items-center">
+        <li
+          class="navbar-brand"
+          role="button"
+          @click="$router.push({ name: 'home' })"
+        >
           <img
             src="https://media.discordapp.net/attachments/1141811053399920671/1148778213250703433/logo.png?width=1024&height=1024"
             alt=""
             width="40"
             height="40"
-            class="d-inline-block align-text-center"
           />
           WanderWaze
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ms-auto">
-            <h5 class="username justify-content-between" v-if="isLoggedIn">
-              <span class="text-white">Welcome, {{ displayedUsername }}</span>
-            </h5>
-          </ul>
-          <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
-            <li class="nav-item" v-if="!isLoggedIn">
-              <a class="nav-link" href="/signup">Signup</a>
-            </li>
-            <li class="nav-item" v-if="!isLoggedIn">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item" v-if="isLoggedIn">
-              <LogoutView />
-            </li>
-          </ul>
-        </div>
+        </li>
       </div>
-    </nav>
-  </header>
+
+      <!-- 2nd Column -->
+      <div class="navbar-nav col-4 justify-content-center align-items-center">
+        <h5 class="username" v-if="isLoggedIn">
+          <span class="username-text text-white user-select-none"
+            >Welcome, {{ displayedUsername }}</span
+          >
+        </h5>
+      </div>
+
+      <!-- 3rd Column -->
+      <div
+        class="navbar-nav navbar-collapse col-4 justify-content-end"
+        id="navbarNav"
+      >
+        <li class="nav-item" role="button" v-if="isLoggedIn">
+          <a class="nav-link" @click="$router.push({ name: 'routing_data' })">
+            Routing
+          </a>
+        </li>
+        <li class="nav-item" role="button" v-if="!isLoggedIn">
+          <a class="nav-link" @click="$router.push({ name: 'signup' })"
+            >Signup
+          </a>
+        </li>
+        <li class="nav-item" role="button" v-if="!isLoggedIn">
+          <a class="nav-link" @click="$router.push({ name: 'login' })">Login</a>
+        </li>
+        <li class="nav-link" role="button" v-if="isLoggedIn">
+          <LogoutView />
+        </li>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>

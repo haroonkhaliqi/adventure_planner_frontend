@@ -1,5 +1,5 @@
 <template>
-  <a class="nav-link" @click="logout" href="#">Logout</a>
+  <a @click="logout"> Logout</a>
 </template>
 
 <script>
@@ -14,15 +14,14 @@ export default {
   },
   methods: {
     async logout() {
-
-        try {
-          localStorage.removeItem("jwtToken");
-          this.clearToken();
-
-          this.clearUser();
-        } catch (error) {
-          console.error("Error logging out:", error);
-        }
+      try {
+        localStorage.removeItem("jwtToken");
+        this.clearToken();
+        this.$router.push({ name: "home" });
+        this.clearUser();
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
     },
     ...mapMutations(["clearUser"]),
     ...mapMutations(["clearToken"]),
