@@ -3,28 +3,23 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
-  computed: {
-    ...mapGetters(["getUsername"]),
-    isAuthenticated() {
-      return this.$root.isAuthenticated;
-    },
-  },
   methods: {
     async logout() {
       try {
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("username");
         this.clearToken();
-        this.$router.push({ name: "home" });
         this.clearUser();
+        this.$router.push({ name: "home" });
       } catch (error) {
         console.error("Error logging out:", error);
       }
     },
-    ...mapMutations(["clearUser"]),
     ...mapMutations(["clearToken"]),
+    ...mapMutations(["clearUser"]),
   },
 };
 </script>

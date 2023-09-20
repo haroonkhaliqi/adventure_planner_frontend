@@ -38,6 +38,11 @@
             >Welcome, {{ displayedUsername }}</span
           >
         </h5>
+        <h5 class="username" v-if="!isLoggedIn">
+          <span class="username-text text-white user-select-none">
+            <FactoidView />
+        </span>
+        </h5>
       </div>
 
       <!-- 3rd Column -->
@@ -45,6 +50,11 @@
         class="navbar-nav navbar-collapse col-4 justify-content-end"
         id="navbarNav"
       >
+        <li class="nav-item" role="button" v-if="isLoggedIn">
+          <a class="nav-link" @click="$router.push({ name: 'places' })">
+            Places
+          </a>
+        </li>
         <li class="nav-item" role="button" v-if="isLoggedIn">
           <a class="nav-link" @click="$router.push({ name: 'routing_data' })">
             Routing
@@ -69,17 +79,10 @@
 <script>
 import logo from "@/assets/logo.png";
 import LogoutView from "@/components/LogoutView.vue";
+import FactoidView from "./FactoidView.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  components: {
-    LogoutView,
-  },
-  data() {
-    return {
-      logo: logo,
-    };
-  },
   computed: {
     ...mapGetters(["isLoggedIn", "getUsername"]),
     isAuthenticated() {
@@ -88,6 +91,15 @@ export default {
     displayedUsername() {
       return this.getUsername;
     },
+  },
+  components: {
+    LogoutView,
+    FactoidView,
+  },
+  data() {
+    return {
+      logo: logo,
+    };
   },
 };
 </script>

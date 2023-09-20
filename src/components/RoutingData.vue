@@ -1,20 +1,25 @@
 <template>
   <AdventureHeader />
-  <h3 class="factoid_container mt-5 mb-5">
-    <FactoidView />
-  </h3>
-  <div class="routing_data_container">
-    <input
-      class="input_container text-center"
-      v-model="originInput"
-      placeholder="Enter your starting origin"
-    />
-    <input
-      class="input_container text-center"
-      v-model="destinationInput"
-      placeholder="Enter your final destination"
-    />
-    <button @click="fetchJsonData">Search</button>
+  <div class="routing_data_container pt-5">
+    <form @submit.prevent="handleSubmit">
+      <input
+        class="input_container text-center pr-5"
+        v-model="originInput"
+        placeholder="Enter starting origin"
+        @keyup.enter="handleSubmit"
+      />
+      <input
+        class="right_input_container text-center pl-5"
+        v-model="destinationInput"
+        placeholder="Enter final destination"
+        @keyup.enter="handleSubmit"
+      />
+    </form>
+    <button class="btn btn-dark mt-3" @click="handleSubmit">Search</button>
+    <div v-if="formError" class="error-message">
+      Please fill in both addresses.
+    </div>
+    <div class="error-message" v-if="this.error">{{ this.error }}</div>
   </div>
   <div class="results_container">
     <div v-if="jsonData">
@@ -29,25 +34,46 @@
 
 <script>
 import AdventureHeader from "./AdventureHeader.vue";
-import FactoidView from "./FactoidView.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     AdventureHeader,
-    FactoidView,
   },
   data() {
     return {
       jsonData: null,
       originInput: "",
       destinationInput: "",
+      formError: null,
+      error: "",
     };
   },
+  computed: {
+      ...mapGetters(["isLoggedIn"]),
+      isAuthenticated() {
+        return this.isLoggedIn;
+      },
+    },
   methods: {
-    async fetchJsonData() {
+    async handleSubmit() {
+
+      if (!this.isLoggedIn) {
+          this.error =
+            "User is not logged in. Please log in to search for addresses.";
+          return;
+        }
+
       const origin = this.originInput;
       const destination = this.destinationInput;
+
+      if (!origin || !destination) {
+        this.formError = "Please fill in both addresses.";
+        return;
+      } else {
+        this.formError = null;
+      }
 
       try {
         const token = localStorage.getItem("jwtToken");
@@ -59,11 +85,13 @@ export default {
           { headers }
         );
         this.jsonData = response.data;
-        console.log(response.data);
       } catch (error) {
-        console.error("Error fetching JSON data:", error);
+        console.error(error);
+        this.error = error.response.data.error;
       }
     },
   },
 };
 </script>
+
+<style src="./RoutingDataStyling.css" />

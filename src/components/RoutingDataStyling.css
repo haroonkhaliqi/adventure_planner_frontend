@@ -1,0 +1,10 @@
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.right_input_container {
+  margin-right: 10px;
+  margin-left: 10px;
+}
