@@ -2,7 +2,7 @@ import Vuex from "vuex";
 
 const store = new Vuex.Store({
   state: {
-    username: null,
+    username: localStorage.getItem("username") || null,
     token: localStorage.getItem("jwtToken") || null,
   },
   mutations: {
@@ -28,8 +28,8 @@ const store = new Vuex.Store({
     isLoggedIn(state) {
       return !!state.token;
     },
-    getUsername() {
-      return localStorage.getItem("username");
+    getUsername(state) {
+      return state.username;
     },
   },
 });

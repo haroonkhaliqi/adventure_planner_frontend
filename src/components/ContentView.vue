@@ -1,70 +1,25 @@
 <template>
   <AdventureHeader />
-  <h3 class="factoid_container mt-5 mb-5">
-    <FactoidView />
-  </h3>
-  <div class="locations_container">
-    <input
-      class="input_container text-center"
-      v-model="addressInput"
-      placeholder="Enter address to search"
-    />
-    <button @click="fetchJsonData">Search</button>
-  </div>
-  <div class="results_container">
-    <div v-if="jsonData">
-      <h4>Search Results:</h4>
-      <ul class="card-list">
-        <li v-for="(result, index) in jsonData.results" :key="index">
-          <div class="card text-dark bg-light mb-3">
-            <div class="card-header">{{ searchQuery }}</div>
-            <div class="card-body">
-              <h5 class="card-title">{{ result.name }}</h5>
-              <p class="card-text">{{ result.address }}</p>
-              <p class="card-text">{{ result.phone_number }}</p>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <h1 class="home-container mt-5 mb-5">HOME PAGE</h1>
+    <h4>Authentiation status: <b>{{ this.isLoggedIn }}</b></h4>
+    <h4>Current username: <b>{{ this.getUsername || "username null" }}</b></h4>
 </template>
 
 <script>
 import AdventureHeader from "./AdventureHeader.vue";
-import FactoidView from "./FactoidView.vue";
-import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     AdventureHeader,
-    FactoidView,
   },
-  data() {
-    return {
-      jsonData: null,
-      addressInput: "",
-      searchQuery: "",
-    };
-  },
-  methods: {
-    async fetchJsonData() {
-      const address = this.addressInput;
-
-      try {
-        const token = localStorage.getItem("jwtToken");
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-        const response = await axios.get(
-          `http://localhost:8000/places?address=${address}`,
-          { headers }
-        );
-        this.jsonData = response.data;
-        this.searchQuery = this.addressInput;
-      } catch (error) {
-        console.error("Error fetching JSON data:", error);
-      }
+  computed: {
+    ...mapGetters(["isLoggedIn", "getUsername"]),
+    isAuthenticated() {
+      return !!this.isLoggedIn;
+    },
+    sayName() {
+      return this.getUsername;
     },
   },
 };

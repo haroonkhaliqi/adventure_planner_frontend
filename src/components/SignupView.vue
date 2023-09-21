@@ -26,6 +26,7 @@
       </div>
       <button class="btn mt-3" type="submit">Signup</button>
     </form>
+    <p v-if="error">{{ this.error }}</p>
     <div class="text-center fs-6">
       Already have an Account?
       <router-link to="/login">Login here!</router-link>
@@ -50,7 +51,6 @@ export default {
   },
   methods: {
     signup() {
-      // Handle registration
       const params = new URLSearchParams();
       params.append("username", this.username);
       params.append("password", this.password);
@@ -58,24 +58,17 @@ export default {
       axios
         .post("http://localhost:8000/signup/", params)
         .then((response) => {
-          // Handle successful registration
-          if (response.data.message === "User registered successfully.") {
-            console.log("Registration successful");
+          if (response.status === 201) {
             this.$router.push({ name: "login" });
+          } else {
+            this.error = "";
           }
         })
         .catch((error) => {
-          if (error.response) {
-            console.error(
-              "Server responded with error:",
-              error.response.status
-            );
-            console.error("Response data:", error.response.data);
-            this.error = error.response.data.message; // Update error message
-          } else if (error.request) {
-            console.error("No response received:", error.request);
+          if (error.response.status === 409) {
+            this.error = "Username already exists";
           } else {
-            console.error("Error:", error.message);
+            this.error = "Registration failed. Please check your input.";
           }
         });
     },

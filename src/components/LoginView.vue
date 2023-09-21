@@ -73,7 +73,6 @@ export default {
         const responseData = response.data;
 
         if (responseData.jwt) {
-          localStorage.setItem("jwtToken", responseData.jwt);
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + responseData.jwt;
           this.$refs.loginForm.reset();
@@ -82,7 +81,7 @@ export default {
           this.$router.push({ name: "home" });
         } else {
           console.error("JWT token not found in the response:", responseData);
-          this.error = "Login failed. Please check your credentials.";
+          this.error = responseData.message;
         }
       } catch (error) {
         console.error("Error:", error);
