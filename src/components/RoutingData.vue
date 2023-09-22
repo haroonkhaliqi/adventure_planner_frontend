@@ -1,6 +1,7 @@
 <template>
   <AdventureHeader />
   <div class="routing_data_container pt-5">
+    <h1>SEARCH ROUTE DETAILS</h1>
     <form @submit.prevent="handleSubmit">
       <input
         class="input_container text-center pr-5"
@@ -25,8 +26,18 @@
     <div v-if="jsonData">
       <h4>Search Results:</h4>
       <div class="text-dark bg-light mb-3">
-        <p class="card-text">Distance: {{ jsonData.distance }}</p>
-        <p class="card-text">Duration: {{ jsonData.duration }}</p>
+        <p class="card-text">
+          Distance: Estimated {{ jsonData.distance }} miles
+        </p>
+        <p class="card-text" v-if="jsonData.duration.hours == 0">
+          Duration: Estimated {{ jsonData.duration.minutes }} minutes
+          {{ jsonData.duration.seconds }} seconds
+        </p>
+        <p class="card-text" v-else>
+          Duration: Estimated {{ jsonData.duration.hours }} hours
+          {{ jsonData.duration.minutes }} miniutes
+          {{ jsonData.duration.seconds }} seconds
+        </p>
       </div>
     </div>
   </div>
@@ -51,19 +62,18 @@ export default {
     };
   },
   computed: {
-      ...mapGetters(["isLoggedIn"]),
-      isAuthenticated() {
-        return this.isLoggedIn;
-      },
+    ...mapGetters(["isLoggedIn"]),
+    isAuthenticated() {
+      return this.isLoggedIn;
     },
+  },
   methods: {
     async handleSubmit() {
-
       if (!this.isLoggedIn) {
-          this.error =
-            "User is not logged in. Please log in to search for addresses.";
-          return;
-        }
+        this.error =
+          "User is not logged in. Please log in to search for addresses.";
+        return;
+      }
 
       const origin = this.originInput;
       const destination = this.destinationInput;
