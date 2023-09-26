@@ -14,7 +14,6 @@ const routes = [
   {
     path: "/signup",
     component: Signup,
-    meta: { requiresAuth: false },
     name: "signup",
   },
   {

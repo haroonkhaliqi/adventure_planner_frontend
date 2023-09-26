@@ -77,7 +77,7 @@ export default {
             "Bearer " + responseData.jwt;
           this.$refs.loginForm.reset();
           this.setUser(responseData.username);
-          this.setToken(responseData.jwt);
+          this.setToken({ token: responseData.jwt, exp: responseData.exp });
           this.$router.push({ name: "home" });
         } else {
           console.error("JWT token not found in the response:", responseData);
