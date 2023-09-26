@@ -1,6 +1,6 @@
 <template>
   <AdventureHeader />
-  <div class="routing_data_container pt-5">
+  <div class="routing_data_container pt-2">
     <h1>SEARCH ROUTE DETAILS</h1>
     <form @submit.prevent="handleSubmit">
       <input
@@ -16,7 +16,7 @@
         @keyup.enter="handleSubmit"
       />
     </form>
-    <button class="btn btn-dark mt-3" @click="handleSubmit">Search</button>
+    <button class="btn btn-dark mt-2" @click="handleSubmit">Search</button>
     <div v-if="formError" class="error-message">
       Please fill in both addresses.
     </div>
@@ -24,7 +24,6 @@
   </div>
   <div class="results_container">
     <div v-if="jsonData">
-      <h4>Search Results:</h4>
       <div class="text-dark bg-light mb-3">
         <p class="card-text">
           Distance: Estimated {{ jsonData.distance }} miles
@@ -39,6 +38,7 @@
           {{ jsonData.duration.seconds }} seconds
         </p>
       </div>
+      <img v-if="mapImageUrl" :src="mapImageUrl" alt="Static Map" class="img-fluid static-map-img"/>
     </div>
   </div>
 </template>
@@ -58,6 +58,7 @@ export default {
       originInput: "",
       destinationInput: "",
       formError: null,
+      mapImageUrl: "",
       error: "",
     };
   },
@@ -95,9 +96,27 @@ export default {
           { headers }
         );
         this.jsonData = response.data;
+
+        const mapResponse = await axios.get(
+          `http://localhost:8000/routes/map/?origin=${origin}&destination=${destination}`,
+          {
+            headers,
+            responseType: "arraybuffer",
+          }
+        );
+
+        if (mapResponse.status === 200) {
+          const imageBlob = new Blob([mapResponse.data], { type: "image/png" });
+          const imageUrl = URL.createObjectURL(imageBlob);
+          this.mapImageUrl = imageUrl;
+        } else {
+          console.error("Failed to fetch the map image.");
+          this.mapImageUrl = "";
+        }
       } catch (error) {
         console.error(error);
         this.error = error.response.data.error;
+        this.mapImageUrl = "";
       }
     },
   },

@@ -9,8 +9,6 @@ export default {
   methods: {
     async logout() {
       try {
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("username");
         this.clearToken();
         this.clearUser();
         this.$router.push({ name: "home" });

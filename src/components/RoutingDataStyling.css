@@ -8,3 +8,8 @@
   margin-right: 10px;
   margin-left: 10px;
 }
+
+.static-map-img {
+  width: 850px;
+  height: auto;
+}
