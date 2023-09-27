@@ -89,6 +89,7 @@ export default {
         );
         this.jsonData = response.data;
         this.searchQuery = this.addressInput;
+        this.error = null
       } catch (error) {
         if (error.response && error.response.data) {
           console.error(error);

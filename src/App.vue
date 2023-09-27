@@ -14,7 +14,6 @@ export default {
       const expTime = localStorage.getItem("exp");
 
       if (expTime && token && expTime <= Date.now() / 1000) {
-        this.$store.commit("setTokenExpired", true);
         this.$store.commit("clearToken");
         this.$store.commit("clearUser");
         next("/");
