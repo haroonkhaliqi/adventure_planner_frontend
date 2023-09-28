@@ -19,6 +19,16 @@
   margin-left: 10px;
 }
 
-.locations_container {
+.full-screen-bg {
+  position: fixed;
+  padding-top: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url(https://media.timeout.com/images/105211701/750/422/image.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
 }

@@ -51,11 +51,6 @@
         id="navbarNav"
       >
         <li class="nav-item" role="button" v-if="isLoggedIn">
-          <a class="nav-link" @click="$router.push({ name: 'places' })">
-            Places
-          </a>
-        </li>
-        <li class="nav-item" role="button" v-if="isLoggedIn">
           <a class="nav-link" @click="$router.push({ name: 'routing_data' })">
             Routing
           </a>

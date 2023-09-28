@@ -5,6 +5,7 @@ const store = new Vuex.Store({
     username: localStorage.getItem("username") || null,
     token: localStorage.getItem("jwtToken") || null,
     exp: localStorage.getItem("exp") || null,
+    address: localStorage.getItem("address") || null,
   },
   mutations: {
     setUser(state, username) {
@@ -27,6 +28,14 @@ const store = new Vuex.Store({
       state.username = null;
       localStorage.removeItem("username");
     },
+    setAddress(state, address) {
+      const addressString = String(address);
+      state.address = addressString;
+    },
+    clearAddress(state) {
+      state.address = null;
+    },
+    
 
   },
   actions: {},
@@ -48,7 +57,9 @@ const store = new Vuex.Store({
 
       return { hours, minutes, seconds };
     },
-
+    getAddress(state) {
+      return state.address;
+    }
   },
 });
 
