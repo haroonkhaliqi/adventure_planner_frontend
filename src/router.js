@@ -4,6 +4,8 @@ import Login from "./components/LoginView.vue";
 import ContentView from "./components/ContentView.vue";
 import RoutingData from "./components/RoutingData.vue";
 import PlacesView from "./components/PlacesView.vue";
+import TypeSelection from "./components/TypeSelection.vue";
+import store from "./store";
 
 const routes = [
   {
@@ -32,6 +34,20 @@ const routes = [
     meta: { requiresAuth: true },
     component: RoutingData,
     name: "routing_data",
+  },
+  {
+    path: "/places/types/",
+    component: TypeSelection,
+    name: "type_selection",
+    beforeEnter: (to, from, next) => {
+      const address = store.getters.getAddress;
+      
+      if (address !== null) {
+        next();
+      } else {
+        next({ name: "home" });
+      }
+    },
   },
 ];
 
