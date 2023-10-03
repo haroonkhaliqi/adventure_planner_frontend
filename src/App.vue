@@ -17,7 +17,10 @@ export default {
         this.$store.commit("clearToken");
         this.$store.commit("clearUser");
         next("/");
-      } else if (to.matched.some((record) => record.meta.requiresAuth) && !token) {
+      } else if (
+        to.matched.some((record) => record.meta.requiresAuth) &&
+        !token
+      ) {
         next("/login");
       } else {
         next();

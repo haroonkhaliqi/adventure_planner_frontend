@@ -5,6 +5,7 @@ import ContentView from "./components/ContentView.vue";
 import RoutingData from "./components/RoutingData.vue";
 import PlacesView from "./components/PlacesView.vue";
 import TypeSelection from "./components/TypeSelection.vue";
+import MappedPlaces from "./components/MappedPlaces.vue";
 import store from "./store";
 
 const routes = [
@@ -24,10 +25,10 @@ const routes = [
     name: "login",
   },
   {
-    path: "/places/",
+    path: "/places/bad/",
     meta: { requiresAuth: true },
     component: PlacesView,
-    name: "places",
+    name: "places_bad",
   },
   {
     path: "/routing/data",
@@ -48,6 +49,11 @@ const routes = [
         next({ name: "home" });
       }
     },
+  },
+  {
+    path: "/places/",
+    component: MappedPlaces,
+    name: "places",
   },
 ];
 

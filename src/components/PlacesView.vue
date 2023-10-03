@@ -1,8 +1,7 @@
 <template>
   <AdventureHeader />
   <div>
-    <h1 class="content-header mt-3">HOME PAGE</h1>
-    <div class="results_container">
+    <div class="results_container mt-5">
       <div v-if="jsonData">
         <ul class="card-list">
           <li v-for="(result, index) in jsonData.results" :key="index">
@@ -70,5 +69,3 @@ export default {
   },
 };
 </script>
-
-<style src="./PlacesStyling.css"></style>
