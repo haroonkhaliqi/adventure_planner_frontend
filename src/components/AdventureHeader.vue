@@ -41,7 +41,7 @@
         <h5 class="username" v-if="!isLoggedIn">
           <span class="username-text text-white user-select-none">
             <FactoidView />
-        </span>
+          </span>
         </h5>
       </div>
 
@@ -53,6 +53,11 @@
         <li class="nav-item" role="button" v-if="isLoggedIn">
           <a class="nav-link" @click="$router.push({ name: 'routing_data' })">
             Routing
+          </a>
+        </li>
+        <li class="nav-item" role="button" v-if="isLoggedIn">
+          <a class="nav-link" @click="$router.push({ name: 'places' })">
+            Places
           </a>
         </li>
         <li class="nav-item" role="button" v-if="!isLoggedIn">
