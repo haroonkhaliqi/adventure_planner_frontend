@@ -1,17 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Signup from "./components/SignupView.vue";
-import Login from "./components/LoginView.vue";
-import ContentView from "./components/ContentView.vue";
+import Signup from "./components/SignupComponent.vue";
+import Login from "./components/LoginComponent.vue";
+import ContentComponent from "./components/ContentComponent.vue";
 import RoutingData from "./components/RoutingData.vue";
-import PlacesView from "./components/PlacesView.vue";
+import PlacesOld from "./components/PlacesOld.vue";
 import TypeSelection from "./components/TypeSelection.vue";
-import MappedPlaces from "./components/MappedPlaces.vue";
+import PlacesComponent from "./components/PlacesComponent.vue";
+import PlacesMapped from "./components/MapComponent.vue";
 import store from "./store";
 
 const routes = [
   {
     path: "/",
-    component: ContentView,
+    component: ContentComponent,
     name: "home",
   },
   {
@@ -27,7 +28,7 @@ const routes = [
   {
     path: "/places/bad/",
     meta: { requiresAuth: true },
-    component: PlacesView,
+    component: PlacesOld,
     name: "places_bad",
   },
   {
@@ -52,9 +53,15 @@ const routes = [
   },
   {
     path: "/places/",
-    component: MappedPlaces,
+    component: PlacesComponent,
     name: "places",
   },
+  {
+    path: '/map',
+    component: PlacesMapped,
+    name: 'map',
+  },
+  
 ];
 
 const router = createRouter({

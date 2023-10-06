@@ -40,7 +40,7 @@
         </h5>
         <h5 class="username" v-if="!isLoggedIn">
           <span class="username-text text-white user-select-none">
-            <FactoidView />
+            <FactoidComponent />
           </span>
         </h5>
       </div>
@@ -69,7 +69,7 @@
           <a class="nav-link" @click="$router.push({ name: 'login' })">Login</a>
         </li>
         <li class="nav-link" role="button" v-if="isLoggedIn">
-          <LogoutView />
+          <LogoutComponent />
         </li>
       </div>
     </div>
@@ -78,9 +78,9 @@
 
 <script>
 import logo from "@/assets/logo.png";
-import LogoutView from "@/components/LogoutView.vue";
-import FactoidView from "./FactoidView.vue";
+import FactoidComponent from "./FactoidComponent.vue";
 import { mapGetters } from "vuex";
+import LogoutComponent from "./LogoutComponent.vue";
 
 export default {
   computed: {
@@ -93,8 +93,8 @@ export default {
     },
   },
   components: {
-    LogoutView,
-    FactoidView,
+    FactoidComponent,
+    LogoutComponent,
   },
   data() {
     return {
