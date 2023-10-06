@@ -1,5 +1,5 @@
 <template>
-  <AdventureHeader />
+  <HeaderComponent />
   <div class="full-screen-bg">
     <div class="locations_container pt-3">
       <h3>SEARCH PLACES TO VISIT</h3>
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import AdventureHeader from "./AdventureHeader.vue";
+import HeaderComponent from "./HeaderComponent.vue";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
   components: {
-    AdventureHeader,
+    HeaderComponent,
   },
   data() {
     return {
@@ -57,4 +57,4 @@ export default {
 };
 </script>
 
-<style src="./ContentViewStyling.css"></style>
+<style src="./ContentComponent.css"></style>

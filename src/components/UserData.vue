@@ -21,7 +21,7 @@
       </div>
       <div class="col-4 text-right h4">
         <div v-if="isLoggedIn">
-          <h4 class="data-header" v-if="isLoggedIn">Token Expiration </h4>
+          <h4 class="data-header" v-if="isLoggedIn">Token Expiration</h4>
           <b>{{ getTimeDifference.hours }}</b> :
           <b>{{ getTimeDifference.minutes }}</b> :
           <b>{{ getTimeDifference.seconds }}</b>

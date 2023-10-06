@@ -1,5 +1,5 @@
 <template>
-  <AdventureHeader />
+  <HeaderComponent />
   <div class="wrapper">
     <div class="logo">
       <img
@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import AdventureHeader from "@/components/AdventureHeader.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
 import axios from "axios";
 
 export default {
   components: {
-    AdventureHeader,
+    HeaderComponent,
   },
   data() {
     return {

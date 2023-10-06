@@ -1,5 +1,5 @@
 <template>
-  <AdventureHeader />
+  <HeaderComponent />
   <div>
     <div class="results_container mt-5">
       <div v-if="jsonData">
@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import AdventureHeader from "./AdventureHeader.vue";
+import HeaderComponent from "./HeaderComponent.vue";
 import axios from "axios";
 
 export default {
   components: {
-    AdventureHeader,
+    HeaderComponent,
   },
   data() {
     return {

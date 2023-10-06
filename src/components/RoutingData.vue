@@ -1,5 +1,5 @@
 <template>
-  <AdventureHeader />
+  <HeaderComponent />
   <div class="routing_data_container pt-2">
     <h1>SEARCH ROUTE DETAILS</h1>
     <form @submit.prevent="handleSubmit">
@@ -38,19 +38,24 @@
           {{ jsonData.duration.seconds }} seconds
         </p>
       </div>
-      <img v-if="mapImageUrl" :src="mapImageUrl" alt="Static Map" class="img-fluid static-map-img"/>
+      <img
+        v-if="mapImageUrl"
+        :src="mapImageUrl"
+        alt="Static Map"
+        class="img-fluid static-map-img"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import AdventureHeader from "./AdventureHeader.vue";
+import HeaderComponent from "./HeaderComponent.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    AdventureHeader,
+    HeaderComponent,
   },
   data() {
     return {
@@ -123,4 +128,4 @@ export default {
 };
 </script>
 
-<style src="./RoutingDataStyling.css" />
+<style src="./RoutingData.css" />

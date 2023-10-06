@@ -6,6 +6,8 @@
 
 <script>
 import "./app.css";
+import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+
 
 export default {
   created() {
