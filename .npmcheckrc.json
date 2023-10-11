@@ -1,9 +1,5 @@
 {
-    "depcheck": {
-      "ignoreMatches": [
-        "@babel/eslint-parser",
-        "@vue/cli-plugin-eslint"
-      ]
-    }
+  "depcheck": {
+    "ignoreMatches": ["@babel/eslint-parser", "@vue/cli-plugin-eslint"]
   }
-  
+}

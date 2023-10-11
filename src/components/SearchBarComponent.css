@@ -1,0 +1,6 @@
+.search-container {
+  max-width: 400px;
+  position: absolute;
+  left: 0;
+  z-index: 3;
+}

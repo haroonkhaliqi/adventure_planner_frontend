@@ -12,7 +12,7 @@ const store = new Vuex.Store({
       state.username = username;
       localStorage.setItem("username", username);
     },
-    setToken(state, {token, exp}) {
+    setToken(state, { token, exp }) {
       state.token = token;
       state.exp = exp;
       localStorage.setItem("exp", exp);
@@ -35,8 +35,6 @@ const store = new Vuex.Store({
     clearAddress(state) {
       state.address = null;
     },
-    
-
   },
   actions: {},
   getters: {
@@ -59,7 +57,7 @@ const store = new Vuex.Store({
     },
     getAddress(state) {
       return state.address;
-    }
+    },
   },
 });
 

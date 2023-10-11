@@ -1,0 +1,44 @@
+#sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  right: 0;
+  background-color: #333;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: 0.3s;
+}
+
+#sidebar.active {
+  width: 400px;
+}
+
+/* Getting the animation here was a pain, I am first setting it as 0,
+not allowing a transition, only allowing one after it is activated,
+by adding in a mounted function in the component */
+
+.sidebar-button {
+  position: fixed;
+  top: 48%;
+  right: 0;
+  transition: right 0s ease;
+  height: 100px;
+}
+
+.sidebar-button.active {
+  right: 400px;
+}
+
+.sidebar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.sidebar-content {
+  margin: 10px;
+  width: 100%;
+  height: 89%;
+  overflow-y: scroll;
+  padding-right: 16px;
+  box-sizing: content-box;
+}

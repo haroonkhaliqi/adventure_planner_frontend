@@ -3,10 +3,7 @@
     <HeaderComponent />
     <div class="wrapper">
       <div class="logo">
-        <img
-          src="https://media.discordapp.net/attachments/1141811053399920671/1148778213250703433/logo.png?width=1024&height=1024"
-          alt=""
-        />
+        <img src="../assets/logo.png?width=1024&height=1024" alt="" />
       </div>
       <div class="text-center mt-4 name">WanderWaze</div>
       <p>Welcome back!</p>
