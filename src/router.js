@@ -3,11 +3,7 @@ import Signup from "./components/SignupComponent.vue";
 import Login from "./components/LoginComponent.vue";
 import ContentComponent from "./components/ContentComponent.vue";
 import RoutingData from "./components/RoutingData.vue";
-import PlacesOld from "./components/PlacesOld.vue";
-import TypeSelection from "./components/TypeSelection.vue";
-import PlacesComponent from "./components/PlacesComponent.vue";
-import PlacesMapped from "./components/MapComponent.vue";
-import store from "./store";
+import MappedPlaces from "./components/MappedPlaces.vue";
 
 const routes = [
   {
@@ -16,52 +12,26 @@ const routes = [
     name: "home",
   },
   {
-    path: "/signup",
+    path: "/signup/",
     component: Signup,
     name: "signup",
   },
   {
-    path: "/login",
+    path: "/login/",
     component: Login,
     name: "login",
   },
   {
-    path: "/places/bad/",
-    meta: { requiresAuth: true },
-    component: PlacesOld,
-    name: "places_bad",
-  },
-  {
-    path: "/routing/data",
+    path: "/routing/data/",
     meta: { requiresAuth: true },
     component: RoutingData,
     name: "routing_data",
   },
   {
-    path: "/places/types/",
-    component: TypeSelection,
-    name: "type_selection",
-    beforeEnter: (to, from, next) => {
-      const address = store.getters.getAddress;
-      
-      if (address !== null) {
-        next();
-      } else {
-        next({ name: "home" });
-      }
-    },
+    path: "/map/",
+    component: MappedPlaces,
+    name: "places_mapped",
   },
-  {
-    path: "/places/",
-    component: PlacesComponent,
-    name: "places",
-  },
-  {
-    path: '/map',
-    component: PlacesMapped,
-    name: 'map',
-  },
-  
 ];
 
 const router = createRouter({

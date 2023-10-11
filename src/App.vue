@@ -8,7 +8,6 @@
 import "./app.css";
 import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
 
-
 export default {
   created() {
     this.$router.beforeEach((to, from, next) => {

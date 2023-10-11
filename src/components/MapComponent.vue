@@ -1,37 +1,53 @@
 <template>
-  <div ref="mapContainer" class="map-container"></div>
+  <div v-if="showMap" ref="mapContainer" class="map-container"></div>
 </template>
 
 <script>
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
 
-
 export default {
   data() {
     return {
       mapboxToken: null,
+      map: null,
     };
   },
-  mounted() {
-    axios
-      .get("http://localhost:8000/api/get_mapbox_token/")
-      .then((response) => {
-        this.mapboxToken = response.data.token;
+  props: {
+    showMap: Boolean,
+  },
+  watch: {
+    showMap: {
+      immediate: true,
+      handler(newValue) {
+        console.log("showMap prop value:", newValue);
+        if (newValue) {
+          this.createMap();
+        }
+      },
+    },
+  },
+  methods: {
+    createMap() {
+      axios
+        .get("http://localhost:8000/api/get_mapbox_token/")
+        .then((response) => {
+          this.mapboxToken = response.data.token;
 
-        mapboxgl.accessToken = this.mapboxToken;
+          mapboxgl.accessToken = this.mapboxToken;
 
-        const map = new mapboxgl.Map({
-          container: this.$refs.mapContainer,
-          style: "mapbox://styles/mapbox/streets-v12",
-          center: [-71.224518, 42.213995],
-          zoom: 9,
+          const map = new mapboxgl.Map({
+            container: this.$refs.mapContainer,
+            style: "mapbox://styles/mapbox/streets-v12",
+            center: [-71.224518, 42.213995],
+            zoom: 9,
+          });
+          this.map = map;
+        })
+        .catch((error) => {
+          console.error("Error fetching Mapbox token:", error);
         });
-        this.map = map;
-      })
-      .catch((error) => {
-        console.error("Error fetching Mapbox token:", error);
-      });
+    },
   },
 };
 </script>
@@ -39,6 +55,6 @@ export default {
 <style scoped>
 .map-container {
   width: 100%;
-  height: 100vh
+  height: 100%;
 }
 </style>

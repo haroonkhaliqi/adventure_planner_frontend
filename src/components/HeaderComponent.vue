@@ -56,8 +56,8 @@
           </a>
         </li>
         <li class="nav-item" role="button" v-if="isLoggedIn">
-          <a class="nav-link" @click="$router.push({ name: 'places' })">
-            Places
+          <a class="nav-link" @click="$router.push({ name: 'places_mapped' })">
+            Map
           </a>
         </li>
         <li class="nav-item" role="button" v-if="!isLoggedIn">
