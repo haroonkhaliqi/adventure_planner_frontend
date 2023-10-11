@@ -40,17 +40,16 @@ export default {
 
   methods: {
     searchPlaces() {
-      // const jwtToken = localStorage.getItem("jwtToken");
+      const jwtToken = localStorage.getItem("jwtToken");
 
       axios
         .get(
-          // `http://localhost:8000/places/api/places/?address=${this.searchQuery}&type=${this.selectedPlaceType}`,
-          `http://localhost:8000/places/api/test/`
-          // {
-          //   headers: {
-          //     Authorization: `Bearer ${jwtToken}`,
-          //   },
-          // }
+          `http://localhost:8000/places/api/places/?address=${this.searchQuery}&type=${this.selectedPlaceType}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
         )
         .then((response) => {
           const nearbyPlaces = response.data.results;
