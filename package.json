@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.22.15",
+    "@mapbox/mapbox-gl-directions": "^4.1.1",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
