@@ -4,9 +4,9 @@
       v-model="searchQuery"
       @keyup.enter="searchPlaces"
       placeholder="Search for a place"
-      class="form-control"
+      class="form-control text-center"
     />
-    <select v-model="selectedPlaceType" class="form-select mt-3">
+    <select v-model="selectedPlaceType" class="form-select mt-3 text-center">
       <option value="">Select a place type</option>
       <option value="bar">Bar</option>
       <option value="cafe">Cafe</option>
@@ -55,8 +55,6 @@ export default {
           const nearbyPlaces = response.data.results;
           this.places = nearbyPlaces;
           this.$emit("placesDataEvent", response.data);
-
-          // console.log(this.places);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);

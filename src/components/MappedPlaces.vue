@@ -1,12 +1,26 @@
 <template>
-  <HeaderComponent />
-
-  <div class="map-container">
-    <MapComponent :showMap="showMap" :key="showMap" />
+  <div class="header-container">
+    <HeaderComponent />
   </div>
-  <SearchBarComponent @placesDataEvent="handlePlacesData" />
-  <div class="sidebar-container" v-if="placesData != null">
-    <SidebarComponent :places="placesData.results" />
+
+  <div v-if="isPopupOpen" class="popup-container" @click="closePopup">
+    <div class="popup">
+      <h1>Click anywhere to place a routing marker</h1>
+    </div>
+  </div>
+
+  <div class="full-container">
+    <div class="map-container">
+      <MapComponent
+        :places="placesData ? placesData.coords : []"
+        :showMap="showMap"
+        :key="showMap"
+      />
+    </div>
+    <SearchBarComponent @placesDataEvent="handlePlacesData" />
+    <div class="sidebar-container" v-if="placesData != null">
+      <SidebarComponent :places="placesData.results" />
+    </div>
   </div>
 </template>
 
@@ -26,14 +40,15 @@ export default {
     return {
       showMap: true,
       placesData: null,
+      isPopupOpen: true,
     };
   },
   methods: {
     handlePlacesData(data) {
       this.placesData = data;
     },
-    logCoords() {
-      console.log(this.placesData);
+    closePopup() {
+      this.isPopupOpen = false;
     },
   },
 };
