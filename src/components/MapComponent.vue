@@ -45,7 +45,7 @@ export default {
   methods: {
     createMap() {
       axios
-        .get("http://localhost:8000/api/get_mapbox_token/")
+        .get("http://localhost:8000/api/mapbox-token/")
         .then((response) => {
           this.mapboxToken = response.data.token;
 

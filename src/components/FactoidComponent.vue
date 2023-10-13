@@ -17,7 +17,7 @@ export default {
   methods: {
     async getData() {
       try {
-        const response = await this.$http.get("http://localhost:8000/factoid/");
+        const response = await this.$http.get("http://localhost:8000/api/factoid/");
         this.facoid.fact = response.data.fact;
       } catch (error) {
         console.error(error);
