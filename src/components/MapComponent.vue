@@ -106,5 +106,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-@import "./mapbox-gl-directions.css";
+@import "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css";
+@import "./MapComponent.css";
 </style>
