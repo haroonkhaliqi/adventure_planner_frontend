@@ -44,7 +44,7 @@ export default {
 
       axios
         .get(
-          `http://localhost:8000/places/api/places/?address=${this.searchQuery}&type=${this.selectedPlaceType}`,
+          `http://localhost:8000/api/places/?address=${this.searchQuery}&type=${this.selectedPlaceType}`,
           {
             headers: {
               Authorization: `Bearer ${jwtToken}`,

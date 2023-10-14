@@ -53,7 +53,7 @@ export default {
       params.append("password", this.password);
 
       axios
-        .post("http://localhost:8000/signup/", params)
+        .post("http://localhost:8000/api/signup/", params)
         .then((response) => {
           if (response.status === 201) {
             this.$router.push({ name: "login" });

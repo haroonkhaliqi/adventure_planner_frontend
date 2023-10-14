@@ -63,7 +63,7 @@ export default {
         formData.append("password", this.password);
 
         const response = await axios.post(
-          "http://localhost:8000/login/",
+          "http://localhost:8000/api/login/",
           formData
         );
 

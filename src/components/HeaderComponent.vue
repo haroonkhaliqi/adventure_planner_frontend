@@ -21,12 +21,7 @@
           role="button"
           @click="$router.push({ name: 'home' })"
         >
-          <img
-            src="https://media.discordapp.net/attachments/1141811053399920671/1148778213250703433/logo.png?width=1024&height=1024"
-            alt=""
-            width="40"
-            height="40"
-          />
+          <img src="../assets/logo.png" alt="" width="40" height="40" />
           WanderWaze
         </li>
       </div>
