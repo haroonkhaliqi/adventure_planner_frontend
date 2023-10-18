@@ -12,7 +12,7 @@
   <div class="full-container">
     <div class="map-container">
       <MapComponent
-        :places="placesData ? placesData.coords : []"
+        :places="placesData ? placesData.results : []"
         :showMap="showMap"
         :key="showMap"
       />

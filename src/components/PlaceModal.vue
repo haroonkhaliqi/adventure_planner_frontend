@@ -22,13 +22,24 @@
           </div>
         </nav>
 
-        <div class="container pt-5">
+        <div class="container pt-2">
+          <img
+            class="img-container pb-2"
+            v-if="placePhoto"
+            :src="placePhoto"
+            alt="Place Photo"
+          />
           <!-- Body Section -->
-          <h5>Address</h5>
+          <div v-if="this.placeDetails.formatted_address">
+            <h5>Address</h5>
+          </div>
           <p>{{ this.placeDetails.formatted_address }}</p>
-          <h5>Phone Number</h5>
-          <p>{{ this.placeDetails.formatted_phone_number }}</p>
+          <div v-if="this.placeDetails.formatted_phone_number">
+            <h5>Phone Number</h5>
+            <p>{{ this.placeDetails.formatted_phone_number }}</p>
+          </div>
           <a
+            v-if="placeDetails.website"
             :href="placeDetails.website"
             target="_blank"
             class="btn btn-primary"
@@ -54,11 +65,13 @@ export default {
   data() {
     return {
       placeDetails: null,
+      placePhoto: null,
     };
   },
   created() {
     if (this.openModal) {
       this.fetchPlaceDetails();
+      this.fetchPlacePhoto();
     }
   },
   methods: {
@@ -72,11 +85,28 @@ export default {
         )
         .then((response) => {
           this.placeDetails = response.data.results.result;
-          console.log("Place details:", response.data);
         })
         .catch((error) => {
           console.error("Error fetching place details:", error);
         });
+    },
+    fetchPlacePhoto() {
+      if (
+        this.selectedPlace &&
+        this.selectedPlace.photos &&
+        this.selectedPlace.photos.length > 0
+      ) {
+        axios
+          .get(
+            `http://localhost:8000/api/photos/?reference=${this.selectedPlace.photos[0].photo_reference}`
+          )
+          .then((response) => {
+            this.placePhoto = response.request.responseURL;
+          })
+          .catch((error) => {
+            console.error("Error fetching place photo:", error);
+          });
+      }
     },
   },
 };
