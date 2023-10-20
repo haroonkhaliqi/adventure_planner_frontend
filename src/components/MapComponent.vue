@@ -1,13 +1,24 @@
 <template>
   <div v-if="showMap" ref="mapContainer" class="map-container"></div>
+  <PlaceModal
+    class="modal-container"
+    v-if="openModal"
+    :selectedPlace="selectedPlace"
+    @close-modal="closePlaceModal"
+    :openModal="openModal"
+  />
 </template>
 
 <script>
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
+import PlaceModal from "./PlaceModal.vue";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 
 export default {
+  components: {
+    PlaceModal,
+  },
   data() {
     return {
       mapboxToken: null,
@@ -15,6 +26,8 @@ export default {
       markers: [],
       placeCoordinates: [],
       isPopupOpen: true,
+      selectedPlace: null,
+      openModal: false,
     };
   },
   props: {
@@ -74,12 +87,17 @@ export default {
 
       places.forEach((place) => {
         const marker = new mapboxgl.Marker()
-          .setLngLat([place.longitude, place.latitude])
+          .setLngLat([place.geometry.location.lng, place.geometry.location.lat])
           .addTo(this.map);
 
+        marker.getElement().addEventListener("click", () => {
+          this.selectedPlace = place;
+          this.openModal = true;
+        });
         this.markers.push(marker);
       });
     },
+
     extractCoordinates(places) {
       this.placeCoordinates = places.map((place) => ({
         latitude: place.latitude,
@@ -96,6 +114,10 @@ export default {
       }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
 
       this.map.fitBounds(bounds, { padding: 200 });
+    },
+    closePlaceModal() {
+      this.selectedPlace = null;
+      this.openModal = false;
     },
   },
 };

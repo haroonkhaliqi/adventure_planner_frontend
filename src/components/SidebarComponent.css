@@ -42,3 +42,7 @@ by adding in a mounted function in the component */
   padding-right: 16px;
   box-sizing: content-box;
 }
+
+.place {
+  cursor: pointer;
+}

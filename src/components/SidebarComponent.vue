@@ -3,7 +3,7 @@
     <div id="sidebar" :class="{ active: isSidebarOpen }">
       <div class="sidebar-content">
         <template v-for="(place, index) in places" :key="index">
-          <div>
+          <div @click="handleClick(place)" class="place">
             <div class="container border p-3">
               <div class="d-flex justify-content-center align-items-center">
                 <h1 class="mb-2 text-white">{{ place.name }}</h1>
@@ -42,14 +42,25 @@
     >
       {{ isSidebarOpen ? ">" : "<" }}
     </button>
+
+    <PlaceModal
+      v-if="openModal"
+      :selectedPlace="selectedPlace"
+      @close-modal="closePlaceModal"
+      :openModal="openModal"
+    />
   </div>
 </template>
 
 <script>
+import PlaceModal from "./PlaceModal.vue";
+
 export default {
   data() {
     return {
       isSidebarOpen: true,
+      selectedPlace: null,
+      openModal: false,
     };
   },
   props: {
@@ -59,6 +70,18 @@ export default {
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
+    closePlaceModal() {
+      this.selectedPlace = null;
+      this.openModal = false;
+    },
+    handleClick(place) {
+      this.selectedPlace = place;
+      this.openModal = true;
+    },
+  },
+
+  components: {
+    PlaceModal,
   },
   mounted() {
     this.$nextTick(() => {
